@@ -19,6 +19,12 @@ insSort [] = []
 insSort (x :: xs) = let xsSorted = insSort xs in
                       insert x xsSorted
                       
+insert : (x : elem) -> (xsSorted : Vect k elem) -> Vect (S k) elem
+insert x [] = [x]
+insert x (y :: ys) = if x<y then x :: y :: xs 
+                            else y :: insert x xs
+                      
+                      
 
 
 main : IO()
