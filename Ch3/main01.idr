@@ -30,21 +30,22 @@ insSort (x :: xs) = let xsSorted = insSort xs in
 my_length : Ord x => Vect n x -> Nat
 my_length [] = 0
 my_length (x :: xs) = 1 + my_length xs
-                      
--- 
-my_swap : Ord elem => elem -> Vect k elem -> Vect (S k) elem
-my_swap x [] = [x]
-my_swap y xs = my_swap xs :: y
 
-my_reverse : Ord x => Vect n elem -> Vect n elem
+
+my_reverse : Ord x => List x -> List x
 my_reverse [] = []
-my_reverse (x :: xs) = my_swap x (my_reverse xs)
+my_reverse (x :: xs) = (my_reverse xs) ++ [x]
+
+my_map : (a -> b) -> List a -> List b
+my_map f [] = []
+my_map f (x :: xs) = [f x] ++ my_map f xs
 
 main : IO ()
 main = do putStrLn (show tenInts)
           putStrLn (show (insSort [1,3,2,9,7,6,4,5,8] ) )
           putStrLn (show (my_length [1,3,5] ))
           putStrLn (show (my_reverse [1,3,5]))
+          putStrLn (show (my_map (*2) [1..10]) )
 
 
 
